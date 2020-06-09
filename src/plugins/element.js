@@ -28,7 +28,8 @@ import {
     Tree,
     Select,
     Option,
-    Cascader
+    Cascader,
+    Popconfirm
 } from 'element-ui'
 
 // 绿色校验正确
@@ -59,5 +60,6 @@ Vue.use(Tree)
 Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
+Vue.use(Popconfirm)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm

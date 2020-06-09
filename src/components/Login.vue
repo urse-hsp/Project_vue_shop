@@ -60,9 +60,9 @@ export default {
         if (!valid) return null
         const { data: res } = await this.$http.post('login', this.loginForm)
         if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
-        this.$message.success(res.meta.msg)
-        window.sessionStorage.setItem('token', res.data.token)
-        this.$router.push('/home')
+          this.$message.success(res.meta.msg)
+          window.sessionStorage.setItem('token', res.data.token)
+          this.$router.push('/home')
       })
     }
   }
