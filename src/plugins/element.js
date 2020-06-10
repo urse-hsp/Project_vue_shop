@@ -29,7 +29,10 @@ import {
     Select,
     Option,
     Cascader,
-    Popconfirm
+    Popconfirm,
+    Alert,
+    Tabs,
+    TabPane
 } from 'element-ui'
 
 // 绿色校验正确
@@ -61,5 +64,8 @@ Vue.use(Select)
 Vue.use(Option)
 Vue.use(Cascader)
 Vue.use(Popconfirm)
+Vue.use(Alert)
+Vue.use(Tabs)
+Vue.use(TabPane)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
