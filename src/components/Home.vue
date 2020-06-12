@@ -100,7 +100,6 @@ export default {
             this.isCollapse = !this.isCollapse
         },
         saveNavState(activePath) {
-            console.log(activePath)
             // window.sessionStorage.setItem('activePath', activePath)
             // this.activePath = activePath
         }

@@ -32,7 +32,12 @@ import {
     Popconfirm,
     Alert,
     Tabs,
-    TabPane
+    TabPane,
+    Steps,
+    Step,
+    CheckboxGroup,
+    Checkbox,
+    Upload
 } from 'element-ui'
 
 // 绿色校验正确
@@ -67,5 +72,10 @@ Vue.use(Popconfirm)
 Vue.use(Alert)
 Vue.use(Tabs)
 Vue.use(TabPane)
+Vue.use(Steps)
+Vue.use(Step)
+Vue.use(CheckboxGroup)
+Vue.use(Checkbox)
+Vue.use(Upload)
 Vue.prototype.$message = Message
 Vue.prototype.$confirm = MessageBox.confirm
