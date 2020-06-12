@@ -113,9 +113,9 @@ export default {
             // 添加商品的表单数据对象
             addForm: {
                 goods_name: '',
-                goods_price: 0,
-                goods_weight: 0,
-                goods_number: 0,
+                goods_price: '',
+                goods_weight: '',
+                goods_number: '',
                 goods_cat: [],
                 // 图片的数组
                 pics: [],
@@ -232,7 +232,7 @@ export default {
         },
         add() {
             this.$refs.addFormRef.validate(async vail => {
-                if (!vail) { return this.$message.error('请填写必要的表单项') }
+                if (!vail) { return this.$message.error('请填写基本信息必要的表单项') }
                 // lodah  cloneDeep()  盛拷贝
                 const form = _.cloneDeep(this.addForm)
                 form.goods_cat = form.goods_cat.join(',')
