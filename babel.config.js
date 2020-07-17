@@ -1,5 +1,7 @@
+// 这是项目发布阶段需要用到的babel插件
 const prodPlugins = []
 
+// 判断是生成模式的时候，加上这个，取出console
 if (process.env.NODE_ENV === 'production') {
   prodPlugins.push('transform-remove-console')
 }
@@ -16,6 +18,7 @@ module.exports = {
         styleLibraryName: 'theme-chalk'
       }
     ],
+      // 发布 产品时候的插件数组
     ...prodPlugins
   ]
 }

@@ -3,18 +3,18 @@ module.exports = {
         // 发布模式
         config.when(process.env.NODE_ENV === 'production', config => {
             config
-                .entry('app')
-                .clear()
-                .add('./src/main-prod.js')
+                .entry('app') // 得到默认的打包入口
+                .clear() // 默认打包入口清空，就没默认打包入口了
+                .add('./src/main-prod.js') // 新增打包入口
 
-            config.set('externals', {
+            config.set('externals', { // externals加载外部的cnd资源 不会打包设置的这些文件，而是去window全局中寻找
                 vue: 'Vue',
                 'vue-router': 'VueRouter',
                 axios: 'axios',
                 lodash: '_',
                 echarts: 'echarts',
                 nprogress: 'NProgress',
-                'vue-quill-editor': 'VueQuillEditor'
+                'vue-quill-editor': 'VueQuilEditor'
             })
             config.plugin('html').tap(args => {
                 args[0].isProd = true
@@ -22,6 +22,7 @@ module.exports = {
             })
         })
 
+        // 开发模式
         config.when(process.env.NODE_ENV === 'development', config => {
             config
                 .entry('app')
