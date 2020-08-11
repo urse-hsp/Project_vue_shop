@@ -197,14 +197,16 @@ export default {
         handleSuccess(response) {
             // 拼写得到一个图片信息对象 将图片信息对象 push到 数组
             const picInfo = { pic: response.data.tmp_path }
+            console.log(picInfo)
             this.addForm.pics.push(picInfo)
+            console.log(this.addForm)
         },
         add() {
             this.$refs.addFormRef.validate(async vail => {
                 if (!vail) {
                     return this.$message.error('请填写基本信息必要的表单项')
                 }
-                // lodah  cloneDeep()  盛拷贝
+                // lodah  cloneDeep()  深拷贝
                 const form = _.cloneDeep(this.addForm)
                 form.goods_cat = form.goods_cat.join(',')
                 // 处理动态参数和静态属性
@@ -225,6 +227,7 @@ export default {
                     this.addForm.attrs.push(newInfo)
                 })
                 form.attrs = this.addForm.attrs
+                console.log(form.attrs)
                 console.log(form)
                 console.log(this.addForm)
                 // 发起请求添加商品。 商品的名称必须是唯一的

@@ -2,9 +2,7 @@
     <div>
         <!-- 面包屑导航区 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }"
-                >首页</el-breadcrumb-item
-            >
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>商品管理</el-breadcrumb-item>
             <el-breadcrumb-item>分类参数</el-breadcrumb-item>
         </el-breadcrumb>
@@ -12,48 +10,26 @@
         <!-- 卡片视图区 -->
         <el-card>
             <!-- 头部警告区 -->
-            <el-alert
-                title="警告提示的文案"
-                type="warning"
-                :closable="false"
-                show-icon
-            >
-            </el-alert>
+            <el-alert title="警告提示的文案" type="warning" :closable="false" show-icon> </el-alert>
 
             <!-- 选择商品分类区 -->
             <el-row class="cat_opt">
                 <el-col>
                     <span>选择商品分类：</span>
                     <!-- 选择商品分类的级联选择框 -->
-                    <el-cascader
-                        v-model="selectCateKeys"
-                        :options="catelist"
-                        :props="cateProps"
-                        @change="handleChange"
-                    >
-                    </el-cascader>
+                    <el-cascader v-model="selectCateKeys" :options="catelist" :props="cateProps" @change="handleChange"> </el-cascader>
                 </el-col>
             </el-row>
 
             <!-- tabs 页签区 -->
             <el-tabs v-model="activeName" @tab-click="handleClick">
                 <el-tab-pane label="动态参数" name="many">
-                    <el-button
-                        type="primary"
-                        :disabled="isBtnDisabled"
-                        @click="addDialogVisible = true"
-                        >添加参数</el-button
-                    >
+                    <el-button type="primary" :disabled="isBtnDisabled" @click="addDialogVisible = true">添加参数</el-button>
                     <!-- 动态参数表格 -->
                     <el-table :data="manyTableData" border stripe>
                         <el-table-column type="expand">
                             <template slot-scope="scope">
-                                <el-tag
-                                    v-for="(item, i) in scope.row.attr_vals"
-                                    :key="i"
-                                    closable
-                                    @close='handleClose(i, scope.row)'
-                                >
+                                <el-tag v-for="(item, i) in scope.row.attr_vals" :key="i" closable @close="handleClose(i, scope.row)">
                                     {{ item }}
                                 </el-tag>
                                 <!-- 输入文本框 -->
@@ -67,58 +43,27 @@
                                     @blur="handleInputConfirm(scope.row)"
                                 >
                                 </el-input>
-                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)"
-                                >+ New Tag</el-button>
+                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
                             </template>
                         </el-table-column>
                         <el-table-column type="index"></el-table-column>
-                        <el-table-column
-                            label="参数名称"
-                            prop="attr_name"
-                        ></el-table-column>
+                        <el-table-column label="参数名称" prop="attr_name"></el-table-column>
                         <el-table-column label="操作">
                             <template slot-scope="scope">
-                                <el-button
-                                    type="primary"
-                                    icon="el-icon-edit"
-                                    size="mini"
-                                    @click="
-                                        showEaitDialog(
-                                            scope.row.attr_id,
-                                            scope.row
-                                        )
-                                    "
-                                    >编辑</el-button
-                                >
-                                <el-button
-                                    type="danger"
-                                    icon="el-icon-delete"
-                                    size="mini"
-                                    @click="removeParams(scope.row.attr_id)"
-                                    >删除</el-button
-                                >
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEaitDialog(scope.row.attr_id, scope.row)">编辑</el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeParams(scope.row.attr_id)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
                 </el-tab-pane>
                 <el-tab-pane label="静态属性" name="only">
-                    <el-button
-                        type="primary"
-                        :disabled="isBtnDisabled"
-                        @click="addDialogVisible = true"
-                        >添加属性</el-button
-                    >
+                    <el-button type="primary" :disabled="isBtnDisabled" @click="addDialogVisible = true">添加属性</el-button>
                     <!-- 静态参数表格 -->
                     <el-table :data="onTyTableData" border stripe>
                         <el-table-column type="expand">
                             <template slot-scope="scope">
                                 <!-- 循环渲染tag标签 -->
-                                <el-tag
-                                    v-for="(item, i) in scope.row.attr_vals"
-                                    :key="i"
-                                     closable
-                                    @close='handleClose(i, scope.row)'
-                                >
+                                <el-tag v-for="(item, i) in scope.row.attr_vals" :key="i" closable @close="handleClose(i, scope.row)">
                                     {{ item }}
                                 </el-tag>
                                 <!-- 输入文本框 -->
@@ -132,36 +77,15 @@
                                     @blur="handleInputConfirm(scope.row)"
                                 >
                                 </el-input>
-                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)"
-                                >+ New Tag</el-button>
+                                <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
                             </template>
                         </el-table-column>
                         <el-table-column type="index"></el-table-column>
-                        <el-table-column
-                            label="参数名称"
-                            prop="attr_name"
-                        ></el-table-column>
+                        <el-table-column label="参数名称" prop="attr_name"></el-table-column>
                         <el-table-column label="操作">
                             <template slot-scope="scope">
-                                <el-button
-                                    type="primary"
-                                    icon="el-icon-edit"
-                                    size="mini"
-                                    @click="
-                                        showEaitDialog(
-                                            scope.row.attr_id,
-                                            scope.row
-                                        )
-                                    "
-                                    >编辑</el-button
-                                >
-                                <el-button
-                                    type="danger"
-                                    icon="el-icon-delete"
-                                    size="mini"
-                                    @click="removeParams(scope.row.attr_id)"
-                                    >删除</el-button
-                                >
+                                <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEaitDialog(scope.row.attr_id, scope.row)">编辑</el-button>
+                                <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeParams(scope.row.attr_id)">删除</el-button>
                             </template>
                         </el-table-column>
                     </el-table>
@@ -170,18 +94,8 @@
         </el-card>
 
         <!-- 添加参数的对话框 -->
-        <el-dialog
-            :title="'添加' + titleText"
-            :visible.sync="addDialogVisible"
-            width="50%"
-            @close="addDialogClosed"
-        >
-            <el-form
-                :model="addFrom"
-                :rules="addFromRules"
-                ref="addFromRef"
-                label-width="100px"
-            >
+        <el-dialog :title="'添加' + titleText" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
+            <el-form :model="addFrom" :rules="addFromRules" ref="addFromRef" label-width="100px">
                 <el-form-item :label="titleText" prop="attr_name">
                     <el-input v-model="addFrom.attr_name"></el-input>
                 </el-form-item>
@@ -193,18 +107,8 @@
         </el-dialog>
 
         <!-- 修改参数的对话框 -->
-        <el-dialog
-            :title="'修改' + titleText"
-            :visible.sync="editDialogVisible"
-            width="50%"
-            @close="editDialogClosed"
-        >
-            <el-form
-                :model="editFrom"
-                :rules="editFromRules"
-                ref="editFromRef"
-                label-width="100px"
-            >
+        <el-dialog :title="'修改' + titleText" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
+            <el-form :model="editFrom" :rules="editFromRules" ref="editFromRef" label-width="100px">
                 <el-form-item :label="titleText" prop="name">
                     <el-input v-model="editFrom.name"></el-input>
                 </el-form-item>
@@ -303,12 +207,9 @@ export default {
                 return null
             }
             // 根据所选分类的id 和当前所处的面板，获取对应的参数
-            const { data: res } = await this.$http.get(
-                `categories/${this.cateId}/attributes`,
-                {
-                    params: { sel: this.activeName }
-                }
-            )
+            const { data: res } = await this.$http.get(`categories/${this.cateId}/attributes`, {
+                params: { sel: this.activeName }
+            })
             if (res.meta.status !== 200) {
                 return this.$message.error(res.meta.msg)
             }
@@ -333,13 +234,10 @@ export default {
         addParams() {
             this.$refs.addFromRef.validate(async vali => {
                 if (!vali) return null
-                const { data: res } = await this.$http.post(
-                    `categories/${this.cateId}/attributes`,
-                    {
-                        attr_name: this.addFrom.attr_name,
-                        attr_sel: this.activeName
-                    }
-                )
+                const { data: res } = await this.$http.post(`categories/${this.cateId}/attributes`, {
+                    attr_name: this.addFrom.attr_name,
+                    attr_sel: this.activeName
+                })
                 if (res.meta.status !== 201) {
                     return this.$message.error(res.meta.msg)
                 }
@@ -351,12 +249,9 @@ export default {
         // 点击按钮展示修改对话框
         async showEaitDialog(id, data) {
             // console.log(attr_id)
-            const { data: res } = await this.$http.get(
-                `categories/${this.cateId}/attributes/${id}`,
-                {
-                    params: { attr_sel: this.activeName }
-                }
-            )
+            const { data: res } = await this.$http.get(`categories/${this.cateId}/attributes/${id}`, {
+                params: { attr_sel: this.activeName }
+            })
             if (res.meta.status !== 200) {
                 return this.$message.err(res.meta.msg)
             }
@@ -373,13 +268,10 @@ export default {
             this.$refs.editFromRef.validate(async avil => {
                 console.log(avil)
                 if (!avil) return null
-                const { data: res } = await this.$http.put(
-                    `categories/${this.cateId}/attributes/${this.addFromData.attr_id}`,
-                    {
-                        attr_name: this.editFrom.name,
-                        attr_sel: this.activeName
-                    }
-                )
+                const { data: res } = await this.$http.put(`categories/${this.cateId}/attributes/${this.addFromData.attr_id}`, {
+                    attr_name: this.editFrom.name,
+                    attr_sel: this.activeName
+                })
                 if (res.meta.status !== 200) {
                     return this.$message.error(res.meta.msg)
                 }
@@ -390,21 +282,15 @@ export default {
         },
         // 根据id删除对应项
         async removeParams(id) {
-            const confirmResult = await this.$confirm(
-                '此操作将永久删除该参数, 是否继续?',
-                '提示',
-                {
-                    confirmButtonText: '确定',
-                    cancelButtonText: '取消',
-                    type: 'warning'
-                }
-            ).catch(err => err)
+            const confirmResult = await this.$confirm('此操作将永久删除该参数, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+            }).catch(err => err)
             if (confirmResult !== 'confirm') {
                 return this.$message.info('已取消删除')
             }
-            const { data: res } = await this.$http.delete(
-                `categories/${this.cateId}/attributes/${id}`
-            )
+            const { data: res } = await this.$http.delete(`categories/${this.cateId}/attributes/${id}`)
             if (res.meta.status !== 200) {
                 return this.$message.error(res.meta.msg)
             }
@@ -486,7 +372,7 @@ export default {
 .el-tag {
     margin: 5px;
 }
-.input-new-tag{
+.input-new-tag {
     width: 120px;
 }
 </style>

@@ -2,9 +2,7 @@
     <div>
         <!-- 面包屑导航区 -->
         <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }"
-                >首页</el-breadcrumb-item
-            >
+            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>商品管理</el-breadcrumb-item>
             <el-breadcrumb-item>商品列表</el-breadcrumb-item>
         </el-breadcrumb>
@@ -13,61 +11,27 @@
         <el-card>
             <el-row>
                 <el-col>
-                    <el-button type="primary" @click="showAddCateDialog"
-                        >添加分类</el-button
-                    >
+                    <el-button type="primary" @click="showAddCateDialog">添加分类</el-button>
                 </el-col>
             </el-row>
 
             <!-- 表格 -->
-            <tree-table
-                :data="cateList"
-                :columns="columns"
-                :selection-type="false"
-                :expand-type="false"
-                :show-index="true"
-                index-text="#"
-                border
-                :show-row-hover="false"
-                class="treeTable"
-            >
+            <tree-table :data="cateList" :columns="columns" :selection-type="false" :expand-type="false" :show-index="true" index-text="#" border :show-row-hover="false" class="treeTable">
                 <template slot="isok" slot-scope="scope">
-                    <i
-                        v-if="scope.row.cat_deleted === false"
-                        class="el-icon-success"
-                        style="color:lightgreen"
-                    ></i>
+                    <i v-if="scope.row.cat_deleted === false" class="el-icon-success" style="color:lightgreen"></i>
                     <i v-else class="el-icon-error"></i>
                 </template>
 
                 <template slot="order" slot-scope="scope">
                     <el-tag v-if="scope.row.cat_level === 0">一级</el-tag>
-                    <el-tag v-else-if="scope.row.cat_level === 1" type="success"
-                        >二级</el-tag
-                    >
-                    <el-tag v-else-if="scope.row.cat_level === 2" type="warning"
-                        >三级</el-tag
-                    >
+                    <el-tag v-else-if="scope.row.cat_level === 1" type="success">二级</el-tag>
+                    <el-tag v-else-if="scope.row.cat_level === 2" type="warning">三级</el-tag>
                 </template>
 
                 <template slot="opt" slot-scope="scope">
-                    <el-button
-                        type="primary"
-                        size="mini"
-                        icon="el-icon-edit"
-                        @click="showCompileDidlog(scope.row)"
-                    >编辑</el-button>
-                    <el-popconfirm
-                        title="这是一段内容确定删除吗？"
-                        @onConfirm="deleteCompileDidlog(scope.row)"
-                    >
-                        <el-button
-                         slot="reference"
-                        type="danger"
-                        size="mini"
-                        icon="el-icon-delete"
-                        class="marginButton"
-                        >删除</el-button >
+                    <el-button type="primary" size="mini" icon="el-icon-edit" @click="showCompileDidlog(scope.row)">编辑</el-button>
+                    <el-popconfirm title="这是一段内容确定删除吗？" @onConfirm="deleteCompileDidlog(scope.row)">
+                        <el-button slot="reference" type="danger" size="mini" icon="el-icon-delete" class="marginButton">删除</el-button>
                     </el-popconfirm>
                 </template>
             </tree-table>
@@ -83,48 +47,25 @@
             ></el-pagination>
 
             <!-- 添加分类的对话框 -->
-            <el-dialog
-                title="添加分类"
-                :visible.sync="addCaleDidlogVisible"
-                width="50%"
-                @close="addCateDialoClose"
-            >
+            <el-dialog title="添加分类" :visible.sync="addCaleDidlogVisible" width="50%" @close="addCateDialoClose">
                 <!-- 添加分类的表单 -->
-                <el-form
-                    :model="addCateFrom"
-                    :rules="addCateFromRules"
-                    ref="addCateFromRef"
-                    label-width="100px"
-                >
+                <el-form :model="addCateFrom" :rules="addCateFromRules" ref="addCateFromRef" label-width="100px">
                     <el-form-item label="分类名称：" prop="name">
                         <el-input v-model="addCateFrom.name"></el-input>
                     </el-form-item>
                     <el-form-item label="父级分类：">
                         <!-- options指定数据源 -->
-                        <el-cascader
-                            v-model="selectedKeys"
-                            :options="parentCateList"
-                            :props="cascderProps"
-                            @change="parentCateChanged"
-                            :clearable="true"
-                            show-all-levels
-                        ></el-cascader>
+                        <el-cascader v-model="selectedKeys" :options="parentCateList" :props="cascderProps" @change="parentCateChanged" :clearable="true" show-all-levels></el-cascader>
                     </el-form-item>
                 </el-form>
                 <span slot="footer" class="dialog-footer">
-                    <el-button @click="addCaleDidlogVisible = false"
-                        >取 消</el-button
-                    >
+                    <el-button @click="addCaleDidlogVisible = false">取 消</el-button>
                     <el-button type="primary" @click="addCale">确 定</el-button>
                 </span>
             </el-dialog>
 
             <!-- 编辑分类对话框 -->
-            <el-dialog
-                title="编辑分类"
-                :visible.sync="compileDidlogVisible"
-                width="50%"
-            >
+            <el-dialog title="编辑分类" :visible.sync="compileDidlogVisible" width="50%">
                 <el-form :model="compileDidlogForm" :rules="compileDidlogRules" ref="compileDidlogRef" label-width="100px">
                     <el-form-item label="编辑名称" prop="name">
                         <el-input v-model="compileDidlogForm.name"></el-input>
@@ -220,9 +161,7 @@ export default {
             compileDidlogFormData: {},
             // 编辑对话框 验证规则
             compileDidlogRules: {
-                name: [
-                    { required: true, message: '请输入更改名', trigger: 'blur' }
-                ]
+                name: [{ required: true, message: '请输入更改名', trigger: 'blur' }]
             }
         }
     },
@@ -265,14 +204,13 @@ export default {
             if (res.meta.status !== 200) {
                 return this.$message.error(res.meta.msg)
             }
+            console.log(res.data)
             this.parentCateList = res.data
         },
         // 级联选择器，选项发生变化触发这个函数
         parentCateChanged() {
             if (this.selectedKeys.length > 0) {
-                this.addCateFrom.cat_pid = this.selectedKeys[
-                    this.selectedKeys.length - 1
-                ]
+                this.addCateFrom.cat_pid = this.selectedKeys[this.selectedKeys.length - 1]
                 // 当前分类的等级赋值
                 this.addCateFrom.cat_level = this.selectedKeys.length
                 return null
