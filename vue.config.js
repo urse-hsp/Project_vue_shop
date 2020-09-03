@@ -1,6 +1,6 @@
 module.exports = {
     chainWebpack: config => {
-        // 发布模式
+        // 发布模式 prod
         config.when(process.env.NODE_ENV === 'production', config => {
             config
                 .entry('app') // 得到默认的打包入口
@@ -14,7 +14,7 @@ module.exports = {
                 lodash: '_',
                 echarts: 'echarts',
                 nprogress: 'NProgress',
-                'vue-quill-editor': 'VueQuilEditor'
+                'vue-quill-editor': 'vueQuillEditor'
             })
             config.plugin('html').tap(args => {
                 args[0].isProd = true
@@ -22,7 +22,7 @@ module.exports = {
             })
         })
 
-        // 开发模式
+        // 开发模式 dev
         config.when(process.env.NODE_ENV === 'development', config => {
             config
                 .entry('app')
