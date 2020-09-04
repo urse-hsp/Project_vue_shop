@@ -14,7 +14,7 @@ module.exports = {
                 lodash: '_',
                 echarts: 'echarts',
                 nprogress: 'NProgress',
-                'vue-quill-editor': 'vueQuillEditor'
+                vueQuillEditor: 'vueQuillEditor'
             })
             config.plugin('html').tap(args => {
                 args[0].isProd = true
