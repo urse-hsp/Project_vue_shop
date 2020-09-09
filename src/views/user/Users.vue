@@ -1,11 +1,8 @@
 <template>
     <div>
         <!-- 面包屑导航区 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-            <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Crumbs />
+
         <!-- 卡片试图区 -->
         <el-card>
             <!-- 搜索与添加区 -->
@@ -114,6 +111,7 @@
 </template>
 
 <script>
+import Crumbs from '@/components/crumbs'
 export default {
     data() {
         // 验证邮箱的规则
@@ -351,6 +349,9 @@ export default {
             this.selectRoleID = ''
             this.userInfo = ''
         }
+    },
+    components: {
+        Crumbs
     }
 }
 </script>

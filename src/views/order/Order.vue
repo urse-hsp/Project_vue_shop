@@ -1,11 +1,7 @@
 <template>
     <div>
         <!-- 面包屑导航区 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>订单管理</el-breadcrumb-item>
-            <el-breadcrumb-item>订单列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Crumbs />
 
         <!-- 卡片视图区 -->
         <el-card>
@@ -86,6 +82,8 @@
 
 <script>
 import cityData from './citydata'
+import Crumbs from '@/components/crumbs'
+
 export default {
     data() {
         return {
@@ -150,6 +148,9 @@ export default {
             this.progressInfo = res.data
             this.ProgressVisible = true
         }
+    },
+    components: {
+        Crumbs
     }
 }
 </script>

@@ -1,31 +1,31 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Login = () => import(/* webpackChunkName: "login_home_welcome" */ '@/components/Login.vue')
-const Home = () => import(/* webpackChunkName: "login_home_welcome" */ '@/components/Home.vue')
-const Welcome = () => import(/* webpackChunkName: "login_home_welcome" */ '@/components/Welcome.vue')
+const Login = () => import(/* webpackChunkName: "login_home_welcome" */ '@/layouts/Login.vue')
+const Home = () => import(/* webpackChunkName: "login_home_welcome" */ '@/layouts/Home.vue')
+const Welcome = () => import(/* webpackChunkName: "login_home_welcome" */ '@/views/Welcome.vue')
 // import Login from '@/components/Login.vue'
 // import Home from '@/components/Home.vue'
 // import Welcome from '@/components/Welcome.vue'
 
-const Users = () => import(/* webpackChunkName: "User_Rights_Roles" */ '@/components/user/Users')
-const Rights = () => import(/* webpackChunkName: "User_Rights_Roles" */ '@/components/power/Rights')
-const Roles = () => import(/* webpackChunkName: "User_Rights_Roles" */ '@/components/power/Roles')
+const Users = () => import(/* webpackChunkName: "User_Rights_Roles" */ '@/views/user/Users')
+const Rights = () => import(/* webpackChunkName: "User_Rights_Roles" */ '@/views/power/Rights')
+const Roles = () => import(/* webpackChunkName: "User_Rights_Roles" */ '@/views/power/Roles')
 // import Users from '@/components/user/Users'
 // import Rights from '@/components/power/Rights'
 // import Roles from '@/components/power/Roles'
 
-const Cate = () => import(/* webpackChunkName: "Cate_Params" */ '@/components/goods/Cate')
-const Params = () => import(/* webpackChunkName: "Cate_Params" */ '@/components/goods/params')
+const Cate = () => import(/* webpackChunkName: "Cate_Params" */ '@/views/goods/Cate')
+const Params = () => import(/* webpackChunkName: "Cate_Params" */ '@/views/goods/params')
 // import Cate from '@/components/goods/Cate'
 // import Params from '@/components/goods/params'
 
-const List = () => import(/* webpackChunkName: "List_Add" */ '@/components/goods/List')
-const Add = () => import(/* webpackChunkName: "List_Add" */ '@/components/goods/Add')
+const List = () => import(/* webpackChunkName: "List_Add" */ '@/views/goods/List')
+const Add = () => import(/* webpackChunkName: "List_Add" */ '@/views/goods/Add')
 // import List from '@/components/goods/List'
 // import Add from '@/components/goods/Add'
 
-const Order = () => import(/* webpackChunkName: "Order_Report" */ '@/components/order/Order')
-const Report = () => import(/* webpackChunkName: "Order_Report" */ '@/components/report/Report')
+const Order = () => import(/* webpackChunkName: "Order_Report" */ '@/views/order/Order')
+const Report = () => import(/* webpackChunkName: "Order_Report" */ '@/views/report/Report')
 // import Order from '@/components/order/Order'
 // import Report from '@/components/report/Report'
 

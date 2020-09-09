@@ -1,13 +1,7 @@
 <template>
     <div>
         <!-- 面包屑导航区 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }"
-                >首页</el-breadcrumb-item
-            >
-            <el-breadcrumb-item>数据统计</el-breadcrumb-item>
-            <el-breadcrumb-item>数据报表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Crumbs />
 
         <!-- 卡片视图 -->
         <el-card>
@@ -19,6 +13,8 @@
 <script>
 import echarts from 'echarts'
 import _ from 'lodash'
+import Crumbs from '@/components/crumbs'
+
 export default {
     data() {
         return {
@@ -55,7 +51,6 @@ export default {
             }
         }
     },
-    created() {},
     async mounted() {
         // 基于准备好的dom，初始化echarts实例
         var myChart = echarts.init(document.getElementById('main'))
@@ -68,7 +63,9 @@ export default {
         const resull = _.merge(res.data, this.options)
         myChart.setOption(resull)
     },
-    methods: {}
+    components: {
+        Crumbs
+    }
 }
 </script>
 

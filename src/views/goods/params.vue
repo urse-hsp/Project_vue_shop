@@ -1,11 +1,7 @@
 <template>
     <div>
         <!-- 面包屑导航区 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-            <el-breadcrumb-item>分类参数</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Crumbs />
 
         <!-- 卡片视图区 -->
         <el-card>
@@ -121,6 +117,8 @@
     </div>
 </template>
 <script>
+import Crumbs from '@/components/crumbs'
+
 export default {
     data() {
         return {
@@ -361,6 +359,9 @@ export default {
             }
             return '静态属性'
         }
+    },
+    components: {
+        Crumbs
     }
 }
 </script>

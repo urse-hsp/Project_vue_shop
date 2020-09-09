@@ -1,11 +1,7 @@
 <template>
     <div>
         <!-- 面包屑导航区 -->
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
-            <el-breadcrumb-item>商品管理</el-breadcrumb-item>
-            <el-breadcrumb-item>商品列表</el-breadcrumb-item>
-        </el-breadcrumb>
+        <Crumbs />
 
         <!-- 卡片视图区 -->
         <el-card>
@@ -56,6 +52,8 @@
 </template>
 
 <script>
+import Crumbs from '@/components/crumbs'
+
 export default {
     data() {
         return {
@@ -80,7 +78,7 @@ export default {
             if (res.meta.status !== 200) {
                 return this.$message.error(res.meta.msg)
             }
-            this.$message.success(res.meta.msg)
+            // this.$message.success(res.meta.msg)
             this.goodsList = res.data.goods
             this.tatal = res.data.total
         },
@@ -113,6 +111,9 @@ export default {
         goAddage() {
             this.$router.push('/goods/add')
         }
+    },
+    components: {
+        Crumbs
     }
 }
 </script>

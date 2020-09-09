@@ -28,23 +28,14 @@
                     :default-active="activePath"
                 >
                     <!-- 一级菜单 -->
-                    <el-submenu
-                        v-for="item in menuList"
-                        :key="item.id"
-                        :index="item.id + ''"
-                    >
+                    <el-submenu v-for="item in menuList" :key="item.id" :index="item.id + ''">
                         <!-- 一级菜单的模板 -->
                         <template slot="title">
                             <i :class="iconsObj[item.id]"></i>
                             <span>{{ item.authName }}</span>
                         </template>
                         <!-- 二级菜单 -->
-                        <el-menu-item
-                            v-for="subItem in item.children"
-                            :key="subItem.id"
-                            :index="'/' + subItem.path"
-                            @click="saveNavState('/' + subItem.path)"
-                        >
+                        <el-menu-item v-for="subItem in item.children" :key="subItem.id" :index="'/' + subItem.path" @click="saveNavState('/' + subItem.path, subItem, item)">
                             <template slot="title">
                                 <i class="el-icon-menu"></i>
                                 <span>{{ subItem.authName }}</span>
@@ -99,7 +90,13 @@ export default {
         toggleCollapse() {
             this.isCollapse = !this.isCollapse
         },
-        saveNavState(activePath) {
+        saveNavState(activePath, subItem, item) {
+            console.log(subItem, item)
+            const Obj = {
+                content1: item.authName,
+                content2: subItem.authName
+            }
+            window.sessionStorage.setItem('breadcrumb', JSON.stringify(Obj))
             // window.sessionStorage.setItem('activePath', activePath)
             // this.activePath = activePath
         }
