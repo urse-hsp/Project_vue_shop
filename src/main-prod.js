@@ -11,8 +11,6 @@ import VueQuilEditor from 'vue-quill-editor'
 // import 'quill/dist/quill.snow.css'
 // import 'quill/dist/quill.bubble.css'
 
-import NProgress from 'nprogress'
-
 import request from './utils/request'
 Vue.prototype.$http = request
 
