@@ -1,26 +1,30 @@
-#制定node镜像的版本
-FROM node:10.24.0 as BUILD
-#声明作者
-MAINTAINER Min "hsp_email@163.com"
+FROM node:14.16.0 as BUILD
 
-# 切换目录
+MAINTAINER Min "dotview@163.com"
+
 WORKDIR /app
 
-#移动当前目录下面的文件到app目录下
-ADD . /app/
-#进入到app目录下面，类似cd
-WORKDIR /app
-#安装依赖# RUN npm install && npm run build:h5
-RUN npm install && npm run build
+COPY . /app/
+
+VOLUME ./node_modules /app/node_modules
+#RUN apk update && \
+#    apk add --update git && \
+#    apk add --update openssh
+
+RUN npm set chromedriver_cdnurl http://cdn.npm.taobao.org/dist/chromedriver && \
+    npm set operadriver_cdnurl http://cdn.npm.taobao.org/dist/operadriver && \
+    npm set phantomjs_cdnurl http://cdn.npm.taobao.org/dist/phantomjs && \
+    npm set sass_binary_site http://cdn.npm.taobao.org/dist/node-sass && \
+    npm set electron_mirror http://cdn.npm.taobao.org/dist/electron/ && \
+    npm config set registry http://registry.npm.taobao.org
+
+RUN npm install && npm run build:h5
 
 FROM nginx:1.13.7
+
 COPY --from=BUILD /app/dist /app
 COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 9000
 
-
-#对外暴露的端口
-EXPOSE 3000
-#程序启动脚本
-# CMD ["npm", "start"]
 RUN echo 'echo init ok!!'
