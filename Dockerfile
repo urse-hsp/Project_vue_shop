@@ -27,7 +27,7 @@ RUN echo 'echo init ok!!'
 
 
 # docker build -f /root/project/vue_shop/Dockerfile . -t vue
-# docker run -p 8677:80 -dit vue
+# docker run -p 8677:80  --name vue -dit vue
 # docker run -p 8687:80 -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf  -d vue:latest
 
 # docker rm $(docker ps -a -q)
