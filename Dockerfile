@@ -14,7 +14,7 @@ RUN yarn && yarn build
 FROM nginx
 # 将当前文件夹的dist文件复制到容器的/usr/share/nginx/html目录
 COPY --from=BUILD /app/dist /app
-COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
+# COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
 
 
 # 声明运行时容器暴露的端口（容器提供的服务端口）
