@@ -22,13 +22,13 @@ COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 9000
 
 # CMD:指定容器启动时要运行的命令
-# CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g"]
 
 RUN echo 'echo init ok!!'
 
 
-# docker build -f /root/project/vue_shop/Dockerfile . -t vue
-# docker run -p 10520:80  --name vue -dit vue
+# docker build -f /root/project/vue_shop/Dockerfile . -t vueadmin
+# docker run -p 10520:80  --name vueadmin -dit vueadmin
 # docker run -p 80:80 -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf  -d nginx:latest
 
 # docker rm $(docker ps -a -q)
