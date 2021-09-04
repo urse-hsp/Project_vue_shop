@@ -2,7 +2,7 @@ import axios from 'axios'
 import NProgress from 'nprogress'
 
 // 配置请求的跟路径
-axios.defaults.baseURL = 'http://node.shaop-cloud.cn/api/private/v1/'
+axios.defaults.baseURL = 'http://text.node.shaop-cloud.cn/api/private/v1/'
 axios.interceptors.request.use(config => {
   NProgress.start()
   config.headers.Authorization = window.sessionStorage.getItem('token')
