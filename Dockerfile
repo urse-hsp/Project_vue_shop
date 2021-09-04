@@ -14,21 +14,23 @@ RUN yarn && yarn build
 FROM nginx
 # 将当前文件夹的dist文件复制到容器的/usr/share/nginx/html目录
 COPY --from=BUILD /app/dist /app
-# COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
+# COPY ./dist /usr/share/nginx/html/
 
 
 # 声明运行时容器暴露的端口（容器提供的服务端口）
-EXPOSE 8080
+EXPOSE 9000
 
 # CMD:指定容器启动时要运行的命令
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
 
 RUN echo 'echo init ok!!'
 
 
 # docker build -f /root/project/vue_shop/Dockerfile . -t vue
-# docker run -p 8677:80  --name vue -dit vue
-# docker run -p 8687:80 -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf  -d vue:latest
+# docker run -p 10520:80  --name vue -dit vue
+# docker run -p 80:80 -v /root/nginx/nginx.conf:/etc/nginx/nginx.conf  -d nginx:latest
 
 # docker rm $(docker ps -a -q)
+# docker image prune -a -f
 
