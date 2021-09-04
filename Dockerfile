@@ -1,28 +1,19 @@
-# dockerfile
 FROM node as BUILD
-
 MAINTAINER Min "hsp_email@163.com"
-
 WORKDIR  /app
 COPY . /app/
-
 VOLUME ./node_modules /app/node_modules
 RUN yarn && yarn build
 
 
 # 使用 nginx最新版本作为基础镜像
 FROM nginx
-# 将当前文件夹的dist文件复制到容器的/usr/share/nginx/html目录
-COPY --from=BUILD /app/dist /app
 COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
-# COPY ./dist /usr/share/nginx/html/
+COPY --from=BUILD /app/dist /app
 
 
 # 声明运行时容器暴露的端口（容器提供的服务端口）
 EXPOSE 9000
-
-# CMD:指定容器启动时要运行的命令
-# CMD ["nginx", "-g"]
 
 RUN echo 'echo init ok!!'
 
@@ -33,4 +24,3 @@ RUN echo 'echo init ok!!'
 
 # docker rm $(docker ps -a -q)
 # docker image prune -a -f
-
