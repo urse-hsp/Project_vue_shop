@@ -7,8 +7,8 @@ RUN npm install && npm build
 
 # 使用 nginx最新版本作为基础镜像
 FROM nginx
-COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=BUILD /app/dist /app
+COPY /app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY /app/dist /app
 
 
 # 声明运行时容器暴露的端口（容器提供的服务端口）
