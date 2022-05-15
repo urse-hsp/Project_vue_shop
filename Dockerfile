@@ -1,4 +1,4 @@
-FROM node:14.17.3
+FROM node:14.17.3 as BUILD
 MAINTAINER Min "hsp_email@163.com"
 WORKDIR  /app
 COPY . /app/
