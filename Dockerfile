@@ -2,7 +2,7 @@ FROM node:14.17.3 as BUILD
 MAINTAINER Min "hsp_email@163.com"
 WORKDIR  /app
 COPY . /app/
-RUN npm install && npm build
+RUN npm install && npm run build
 
 
 # 使用 nginx最新版本作为基础镜像
