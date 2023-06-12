@@ -1,4 +1,4 @@
-FROM node:14.17.3 as BUILD
+FROM node as BUILD
 MAINTAINER Min "hsp_email@163.com"
 WORKDIR  /app
 COPY . /app/
@@ -9,7 +9,6 @@ RUN npm install && npm run build
 FROM nginx
 COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY --from=BUILD /app/dist /app
-
 
 # 声明运行时容器暴露的端口（容器提供的服务端口）
 EXPOSE 9000
