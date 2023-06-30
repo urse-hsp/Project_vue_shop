@@ -240,12 +240,14 @@ export default {
     // 监听switch 开关的改变
     async userStateChanged(userinfo) {
       console.log(userinfo)
-      const { data: res } = await this.$http.put(`users/${userinfo.id}/state/${userinfo.mg_state}`)
-      if (res.meta.status !== 200) {
+      const { code, message } = await this.$http.put(`users/${userinfo.id}/state/${userinfo.mg_state}`)
+      if (code === 200) {
+        this.$message.success('用户更新状态成功')
+      } else {
         userinfo.mg_state = !userinfo.mg_state
-        return this.$message.error('更新用户状态失败')
+        this.$message.error(message)
+        // his.$message.error('更新用户状态失败')
       }
-      this.$message.success('用户更新状态成功')
     },
     // 监听添加用户对话框的关闭事件
     addDialogClosed() {
@@ -338,13 +340,14 @@ export default {
       if (!this.selectRoleID) {
         return this.$message.error('请选择要分配的角色')
       }
-      const { data: res } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectRoleID })
-      if (res.meta.status !== 200) {
-        return this.$message.error(res.meta.msg)
+      const { code, message } = await this.$http.put(`users/${this.userInfo.id}/role`, { rid: this.selectRoleID })
+      if (code === 200) {
+        this.$message.success(message)
+        this.getUserList()
+        this.setRoleDialogVistble = false
+      } else {
+        this.$message.error(message)
       }
-      this.$message.success(res.meta.msg)
-      this.getUserList()
-      this.setRoleDialogVistble = false
     },
     // 分配角色信息关闭事件
     setRoleDiaogClosed() {
