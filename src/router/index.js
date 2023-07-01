@@ -48,6 +48,7 @@ const routes = [
       { path: '/params', name: 'Params', component: Params },
       { path: '/goods', name: 'List', component: List },
       { path: '/goods/add', name: 'Add', component: Add },
+      { path: '/goods/:id', name: 'Edit', component: Add },
       { path: '/orders', name: 'Order', component: Order },
       { path: '/reports', name: 'Report', component: Report }
     ]

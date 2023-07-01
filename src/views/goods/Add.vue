@@ -137,6 +137,7 @@ export default {
   },
   created() {
     this.getCateList()
+    this.info()
   },
   methods: {
     async getCateList() {
@@ -242,6 +243,15 @@ export default {
         this.$message.success('商品成功')
         this.$router.push('/goods')
       })
+    },
+    async info() {
+      if (this.$router.history.current.name !== 'Edit') {
+        return
+      }
+      const res = await this.$http.get(`goods/${this.$router.history.current.params.id}`)
+      if (res.code === 200) {
+        this.addForm = res.data
+      }
     }
   },
   computed: {
