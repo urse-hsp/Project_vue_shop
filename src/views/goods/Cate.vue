@@ -193,7 +193,7 @@ export default {
         return this.$message.error(res.message)
       }
       // 获取数据列表分给cateList
-      this.cateList = res.data.result
+      this.cateList = res.data.data
       this.tabal = res.data.total
     },
     // 监听page-sizes 改变
