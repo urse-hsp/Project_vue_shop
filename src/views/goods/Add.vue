@@ -72,7 +72,7 @@
           <el-tab-pane label="商品内容" name="4">
             <!-- 富文本编辑器 -->
             <quill-editor v-model="addForm.goods_introduce"></quill-editor>
-            <el-button type="primary" class="btn" @click="add">添加商品</el-button>
+            <el-button type="primary" class="btn" @click="add">{{ isEdit ? '编辑' : '添加' }}商品</el-button>
           </el-tab-pane>
         </el-tabs>
       </el-form>
@@ -88,6 +88,7 @@
 <script>
 import _ from 'lodash'
 import Crumbs from '@/components/crumbs'
+import { baseUrl } from '@/utils/request'
 
 export default {
   data() {
@@ -103,7 +104,7 @@ export default {
         // 图片的数组
         pics: [],
         goods_introduce: '',
-        attrs: []
+        attrs: [] // 属性列表
       },
       addFormRules: {
         goods_name: [{ required: true, message: '请输入商品名称', trigger: 'blur' }],
@@ -125,14 +126,15 @@ export default {
       // 静态属性列表
       onlyTableData: [],
       // 图片上传的后台地址
-      uploadUr: 'http://127.0.0.1:8888/api/private/v1/upload',
+      uploadUr: baseUrl + 'upload',
       // 图片上传请求头
       headerObj: {
         Authorization: window.sessionStorage.getItem('token')
       },
       previwPath: '',
       // 图片预览隐藏显示
-      previewVisible: false
+      previewVisible: false,
+      isEdit: this.$router.history.current.name === 'Edit'
     }
   },
   created() {
@@ -213,6 +215,7 @@ export default {
         }
         // lodah  cloneDeep()  深拷贝
         const form = _.cloneDeep(this.addForm)
+        console.log(form.goods_cat, 666)
         form.goods_cat = form.goods_cat.join(',')
         // 处理动态参数和静态属性
         console.log(this.manyTableData)
@@ -229,28 +232,37 @@ export default {
             attr_id: item.attr_id,
             attr_value: item.attr_vals
           }
-          this.addForm.attrs.push(newInfo)
+          if (this.addForm.attrs) {
+            this.addForm.attrs.push(newInfo)
+          }
         })
         form.attrs = this.addForm.attrs
-        console.log(form.attrs)
-        console.log(form)
-        console.log(this.addForm)
         // 发起请求添加商品。 商品的名称必须是唯一的
-        const res = await this.$http.post('goods', form)
-        if (res.code !== 201) {
-          return this.$message.error(res.message)
+        let res
+        if (this.isEdit) {
+          res = await this.$http.put(`goods/${form.goods_id}`, form)
+        } else {
+          res = await this.$http.post('goods', form)
         }
-        this.$message.success('商品成功')
-        this.$router.push('/goods')
+        if (res.code === 200) {
+          this.$message.success('成功')
+          this.$router.push('/goods')
+        } else {
+          this.$message.error(res.message)
+        }
       })
     },
     async info() {
-      if (this.$router.history.current.name !== 'Edit') {
+      if (!this.isEdit) {
         return
       }
       const res = await this.$http.get(`goods/${this.$router.history.current.params.id}`)
+      console.log(res.data.goods_cat.split(','), 666)
       if (res.code === 200) {
-        this.addForm = res.data
+        this.addForm = {
+          ...res.data,
+          goods_cat: res.data.goods_cat ? res.data.goods_cat.split(',').map(Number) : []
+        }
       }
     }
   },
