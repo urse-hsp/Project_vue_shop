@@ -1,8 +1,9 @@
 import axios from 'axios'
 import NProgress from 'nprogress'
+export const baseUrl = 'http://localhost:3333/api/private/v1/'
 
 // 配置请求的跟路径
-axios.defaults.baseURL = 'http://localhost:3333/api/private/v1/'
+axios.defaults.baseURL = baseUrl
 axios.interceptors.request.use(config => {
   NProgress.start()
   config.headers.Authorization = window.sessionStorage.getItem('token')
