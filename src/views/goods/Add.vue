@@ -60,10 +60,11 @@
               class="upload-demo"
               :action="uploadUr"
               :on-preview="handlePreview"
-              :on-remove="handleRemove"
               list-type="picture"
               :headers="headerObj"
               :on-success="handleSuccess"
+              :file-list="addForm.pics"
+              :on-remove="handleRemove"
             >
               <el-button size="small" type="primary">点击上传</el-button>
               <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
@@ -193,20 +194,17 @@ export default {
       this.previewVisible = true
     },
     // 处理移除图片的炒作
-    handleRemove(file, fileList) {
-      const filePath = file.response.data.tmp_path
-      const i = this.addForm.pics.findIndex(x => {
-        x.pic = filePath
-      })
-      this.addForm.pics.splice(i, 1)
+    handleRemove(file) {
+      const newList = this.addForm.pics.filter(item => item.pics_id !== file.pics_id)
+      this.addForm.pics = newList
     },
     // 监听图片上传成功
     handleSuccess(response) {
-      // 拼写得到一个图片信息对象 将图片信息对象 push到 数组
-      const picInfo = { pic: response.data.tmp_path }
-      console.log(picInfo)
-      this.addForm.pics.push(picInfo)
-      console.log(this.addForm)
+      if (response.code === 200) {
+        // 拼写得到一个图片信息对象 将图片信息对象 push到 数组
+        const picInfo = { url: response.data.url, pic: response.data.tmp_path }
+        this.addForm.pics.push(picInfo)
+      }
     },
     add() {
       this.$refs.addFormRef.validate(async vail => {
@@ -215,7 +213,7 @@ export default {
         }
         // lodah  cloneDeep()  深拷贝
         const form = _.cloneDeep(this.addForm)
-        console.log(form.goods_cat, 666)
+        console.log(form.pics, 666)
         form.goods_cat = form.goods_cat.join(',')
         // 处理动态参数和静态属性
         console.log(this.manyTableData)
@@ -257,11 +255,18 @@ export default {
         return
       }
       const res = await this.$http.get(`goods/${this.$router.history.current.params.id}`)
-      console.log(res.data.goods_cat.split(','), 666)
       if (res.code === 200) {
+        // 处理图片数据
+
         this.addForm = {
           ...res.data,
-          goods_cat: res.data.goods_cat ? res.data.goods_cat.split(',').map(Number) : []
+          goods_cat: res.data.goods_cat ? res.data.goods_cat.split(',').map(Number) : [],
+          pics: res.data.pics.map(item => {
+            const Obj = item
+            Obj.uid = item.pics_id
+            Obj.url = item.pics_big_url
+            return Obj
+          })
         }
       }
     }
