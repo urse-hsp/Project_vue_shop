@@ -181,10 +181,11 @@ export default {
   methods: {
     async getCateList() {
       const res = await this.$http.get('categories')
-      if (res.code !== 200) {
-        return this.$message.error(res.message)
+      if (res.code === 200) {
+        this.catelist = res.data
+      } else {
+        this.$message.error(res.message)
       }
-      this.catelist = res.data
     },
     // 级联选择框 选中变化触发函数
     handleChange() {
@@ -234,7 +235,7 @@ export default {
           attr_name: this.addFrom.attr_name,
           attr_sel: this.activeName
         })
-        if (res.code !== 201) {
+        if (res.code !== 200) {
           return this.$message.error(res.message)
         }
         this.$message.success('添加成功')

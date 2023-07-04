@@ -189,12 +189,12 @@ export default {
       const res = await this.$http.get('categories', {
         params: this.querInfo
       })
-      if (res.code !== 200) {
-        return this.$message.error(res.message)
+      if (res.code === 200) {
+        this.cateList = res.data.data
+        this.tabal = res.data.total
+      } else {
+        this.$message.error(res.message)
       }
-      // 获取数据列表分给cateList
-      this.cateList = res.data.data
-      this.tabal = res.data.total
     },
     // 监听page-sizes 改变
     handleSizeChange(newSize) {
@@ -216,11 +216,11 @@ export default {
       const res = await this.$http.get('categories', {
         params: { type: 2 }
       })
-      if (res.code !== 200) {
-        return this.$message.error(res.message)
+      if (res.code === 200) {
+        this.parentCateList = res.data
+      } else {
+        this.$message.error(res.message)
       }
-      console.log(res.data)
-      this.parentCateList = res.data
     },
     // 级联选择器，选项发生变化触发这个函数
     parentCateChanged() {
@@ -246,12 +246,14 @@ export default {
       this.$refs.addCateFromRef.validate(async valid => {
         if (!valid) return null
         const res = await this.$http.post('categories', params)
-        if (res.code !== 201) {
-          return this.$message.error(res.message)
+
+        if (res.code === 200) {
+          this.$message.success(res.message)
+          this.getCateList()
+          this.addCaleDidlogVisible = false
+        } else {
+          this.$message.error(res.message)
         }
-        this.$message.success(res.message)
-        this.getCateList()
-        this.addCaleDidlogVisible = false
       })
     },
     // 监听对话框的关闭事件，重置表单数据
@@ -277,22 +279,24 @@ export default {
         const res = await this.$http.put(`categories/${this.compileDidlogFormData.cat_id}`, {
           cat_name: this.compileDidlogForm.name
         })
-        if (res.code !== 200) {
-          return this.$message.error(res.message)
+        if (res.code === 200) {
+          this.$message.success('更改成功')
+          this.getCateList()
+          this.compileDidlogVisible = false
+        } else {
+          this.$message.error(res.message)
         }
-        this.$message.success('更改成功')
-        this.getCateList()
-        this.compileDidlogVisible = false
       })
     },
     // 点击删除 确认后删除分类
     async deleteCompileDidlog(row) {
       const res = await this.$http.delete(`categories/${row.cat_id}`)
-      if (res.code !== 200) {
-        return this.$message.error(res.message)
+      if (res.code === 200) {
+        this.$message.success('删除分类成功')
+        this.getCateList()
+      } else {
+        this.$message.error(res.message)
       }
-      this.$message.success('删除分类成功')
-      this.getCateList()
     }
   },
   components: {
