@@ -137,7 +137,7 @@ export default {
         // 当前页数
         current: 1,
         // 当前每页显示多少条数据
-        pageSize: 2
+        pageSize: 5
       },
       userList: [],
       total: 0,
