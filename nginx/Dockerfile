@@ -17,7 +17,7 @@ FROM nginx:latest
 # 前端静态放入 /app
 # COPY --from=BUILD /app/dist /app
 # 前端静态放入nginx服务代理
-COPY --from=build /app/dist /usr/share/nginx/html
+COPY --from=BUILD /app/dist /usr/share/nginx/html
 
 
 # 声明运行时容器暴露的端口（容器提供的服务端口）
