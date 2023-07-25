@@ -1,5 +1,5 @@
 # 构建阶段
-FROM node:14.17.3 as BUILD
+FROM node:16.17.0  as BUILD
 WORKDIR  /app
 # 将npm install命令放在最后一步，并将package.json和package-lock.json文件复制到镜像中。
 COPY package*.json ./
