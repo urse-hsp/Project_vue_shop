@@ -24,6 +24,5 @@ COPY --from=BUILD /app/dist /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
 
-
-# 换源方案 加速install
-# RUN npm install --omit=dev --registry=https://registry.npm.taobao.org
+# 多阶段构建。 第二个镜像指定copy第一个镜像的 最终只会留下第二个镜像，这个镜像里只有生产环境需要的依赖，体积更小。传输速度、运行速度也会更快。
+# 第一阶段使用node镜像来构建应用程序，第二阶段使用nginx镜像来运行应用程序。这样可以减少镜像大小和构建时间，同时保证应用程序的稳定性和可靠性。
