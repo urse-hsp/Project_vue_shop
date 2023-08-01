@@ -15,7 +15,7 @@ FROM nginx:latest
 # 替换nginx
 # COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
 # 前端静态放入 /app
-# COPY --from=BUILD /app/dist /app
+COPY --from=BUILD /app/dist /app
 # 前端静态放入nginx服务代理
 COPY --from=BUILD /app/dist /usr/share/nginx/html
 
