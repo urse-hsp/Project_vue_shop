@@ -13,7 +13,7 @@ RUN npm run build
 # 分析一下 50M+ 的镜像体积，nginx:10-alpine 的镜像是16M，剩下的40M是静态资源。
 FROM nginx:latest
 # 替换nginx
-# COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=BUILD /app/nginx/nginx.conf /etc/nginx/nginx.conf
 # 前端静态放入 /app
 COPY --from=BUILD /app/dist /app
 # 前端静态放入nginx服务代理
