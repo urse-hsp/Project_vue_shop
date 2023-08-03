@@ -1,3 +1,11 @@
+
+    // // gizp压缩
+    // new CompressionWebpackPlugin({
+    //     test: /\.(js|css|json|txt|html|ico|svg)(\?.*)?$/i,
+    //     threshold: 10240, // 对10K以上的数据进行压缩
+    //     deleteOriginalAssets: true,
+    //   }),
+
 module.exports = {
     chainWebpack: config => {
         // 发布模式 prod
